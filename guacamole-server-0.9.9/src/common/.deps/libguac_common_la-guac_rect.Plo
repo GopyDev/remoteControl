@@ -1,0 +1,8 @@
+libguac_common_la-guac_rect.lo: guac_rect.c /usr/include/stdc-predef.h \
+ ../../config.h guac_rect.h
+
+/usr/include/stdc-predef.h:
+
+../../config.h:
+
+guac_rect.h:

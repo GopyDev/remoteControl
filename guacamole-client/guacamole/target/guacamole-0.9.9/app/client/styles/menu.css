@@ -1,0 +1,295 @@
+/*
+ * Copyright (C) 2015 Glyptodon LLC
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#view-area:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+}
+
+.newmenu .a-btn{
+    overflow: hidden;
+    position: absolute;
+    cursor: move;
+    top: 30px;
+    width:50px;
+    height:50px;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:10%;
+    display:block;
+    margin-left:15px;
+    float:left;
+    background:#239ACB;
+    position:relative; 
+}
+
+.newmenu .a-btn span{
+    display:table-cell;
+    width:50px;
+    height:50px;
+    padding:5px;
+    text-align:center;
+    vertical-align:middle;
+    font-size:14px;
+    color:#fff;
+    text-shadow:0px 1px 1px #A03F16;
+    font-family:"Arvo", "Myriad Pro", "Trebuchet MS", sans-serif;
+}
+.newmenu .a-btn span:nth-child(1){
+    position:absolute;
+    font-size:13px;
+    line-height:16px;
+    opacity:0;
+}
+.newmenu .a-btn span:nth-child(3){
+    position:absolute;
+    top:11px;
+    left:0px;
+    font-size:13px;
+    line-height:16px;
+    opacity:0;
+}
+.newmenu .a-btn span:nth-child(1){
+    background:transparent url(images/settings/star.png) no-repeat center center;
+    opacity:0.2;
+}
+.newmenu .a-btn:hover{
+    background:rgba(170, 77, 27, 0.6);
+    -webkit-box-shadow:0px 0px 3px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 3px 2px rgba(170, 77, 27, 0.2) inset, 0px 0px 0px 3px #fff,  1px 2px 3px 4px rgba(188, 188, 188, 0.6), 0px 0px 0px 4px #fff;
+    -moz-box-shadow:0px 0px 3px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 3px 2px rgba(170, 77, 27, 0.2) inset, 0px 0px 0px 3px #fff,  1px 2px 3px 4px rgba(188, 188, 188, 0.6), 0px 0px 0px 4px #fff;
+    box-shadow:0px 0px 3px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 3px 2px rgba(170, 77, 27, 0.2) inset, 0px 0px 0px 3px #fff,  1px 2px 3px 4px rgba(188, 188, 188, 0.6), 0px 0px 0px 4px #fff;
+}
+.newmenu .a-btn:hover span:nth-child(3){
+    opacity:1;
+}
+.newmenu .a-btn:hover span:nth-child(2){
+    opacity: 0; 
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    transform: scale(0);
+}
+.newmenu .a-btn:hover span:nth-child(1){
+    -webkit-animation:rotate 0.3s linear;
+    -moz-animation:rotate 0.3s linear;
+    animation:rotate 0.3s linear;
+}
+
+@keyframes rotate{
+    0% { transform: scale(1) rotate(0);}
+    50% { transform: scale(0.5) rotate(180deg);}
+    100% { transform: scale(1) rotate(360deg);}
+}
+@-webkit-keyframes rotate{
+    0% { -webkit-transform: scale(1) rotate(0);}
+    50% { -webkit-transform: scale(0.5) rotate(180deg);}
+    100% { -webkit-transform: scale(1) rotate(360deg);}
+}
+@-moz-keyframes rotate{
+    0% { -moz-transform: scale(1) rotate(0);}
+    50% { -moz-transform: scale(0.5) rotate(180deg);}
+    100% { -moz-transform: scale(1) rotate(360deg);}
+}
+
+.unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+
+.menu {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    max-width: 100%;
+    width: 300px;
+    background: #EEE;
+    box-shadow: inset -1px 0 2px white, 1px 0 2px black;
+    z-index: 10;
+    -webkit-transition: left 0.125s, opacity 0.125s;
+    -moz-transition: left 0.125s, opacity 0.125s;
+    -ms-transition: left 0.125s, opacity 0.125s;
+    -o-transition: left 0.125s, opacity 0.125s;
+    transition: left 0.125s, opacity 0.125s;
+}
+
+.newmenu .new {
+    overflow: hidden;
+    position: absolute;
+    cursor: pointer;
+    top: 15px;
+    height: 60px;
+    font-size: 0.7em;
+    width: 20px;
+    background: #EEE;
+    box-shadow: inset -1px 0 2px white, 1px 0 2px black;
+    z-index: 10;
+    -webkit-transition: left 0.125s, opacity 0.125s;
+    -moz-transition: left 0.125s, opacity 0.125s;
+    -ms-transition: left 0.125s, opacity 0.125s;
+    -o-transition: left 0.125s, opacity 0.125s;
+    transition: left 0.125s, opacity 0.125s;
+}
+
+.newmenu .new:hover {
+    border: 1px solid rgba(0, 0, 0, 1);
+    background: #239ACB;
+    cursor: pointer;
+}
+
+.newmenu .moveicon {
+    overflow: hidden;
+    position: absolute;
+    cursor: move;
+    top: 75px;
+    height: 10px;
+    width: 20px;
+    background: #EEE;
+    box-shadow: inset -1px 0 2px white, 1px 0 2px black;
+    z-index: 10;
+    -webkit-transition: left 0.125s, opacity 0.125s;
+    -moz-transition: left 0.125s, opacity 0.125s;
+    -ms-transition: left 0.125s, opacity 0.125s;
+    -o-transition: left 0.125s, opacity 0.125s;
+    transition: left 0.125s, opacity 0.125s;
+}
+
+.newmenu .moveicon:hover {
+    border: 1px solid rgba(0, 0, 0, 1);
+    background: #239ACB;
+}
+
+.menu-content {
+
+    /* IE10 */
+    display: -ms-flexbox;
+    -ms-flex-align: stretch;
+    -ms-flex-direction: column;
+
+    /* Ancient Mozilla */
+    display: -moz-box;
+    -moz-box-align: stretch;
+    -moz-box-orient: vertical;
+
+    /* Ancient WebKit */
+    display: -webkit-box;
+    -webkit-box-align: stretch;
+    -webkit-box-orient: vertical;
+
+    /* Old WebKit */
+    display: -webkit-flex;
+    -webkit-align-items: stretch;
+    -webkit-flex-direction: column;
+
+    /* W3C */
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+
+}
+
+.menu-content .header {
+
+    -ms-flex: 0 0 auto;
+    -moz-box-flex: 0;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+
+    margin-bottom: 0;
+    
+}
+
+.menu-body {
+
+    -ms-flex: 1 1 auto;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+
+    padding: 1em;
+    overflow: auto;
+
+    /* IE10 */
+    display: -ms-flexbox;
+    -ms-flex-align: stretch;
+    -ms-flex-direction: column;
+
+    /* Ancient Mozilla */
+    display: -moz-box;
+    -moz-box-align: stretch;
+    -moz-box-orient: vertical;
+    
+    /* Ancient WebKit */
+    display: -webkit-box;
+    -webkit-box-align: stretch;
+    -webkit-box-orient: vertical;
+
+    /* Old WebKit */
+    display: -webkit-flex;
+    -webkit-align-items: stretch;
+    -webkit-flex-direction: column;
+
+    /* W3C */
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+
+}
+
+.menu-body > * {
+    -ms-flex: 0 0 auto;
+    -moz-box-flex: 0;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+.menu-section h3 {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 1em;
+}
+
+.menu-section ~ .menu-section h3 {
+    padding-top: 1em;
+}
+
+.menu,
+.menu.closed {
+    left: -300px;
+    opacity: 0;
+}
+
+.menu.open {
+    left: 0px;
+    opacity: 1;
+}

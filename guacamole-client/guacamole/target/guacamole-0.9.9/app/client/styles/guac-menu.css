@@ -1,0 +1,301 @@
+/*
+ * Copyright (C) 2015 Glyptodon LLC
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+#guac-menu .content {
+
+    padding: 0;
+    margin: 0;
+
+    /* IE10 */
+    display: -ms-flexbox;
+    -ms-flex-align: stretch;
+    -ms-flex-direction: column;
+
+    /* Ancient Mozilla */
+    display: -moz-box;
+    -moz-box-align: stretch;
+    -moz-box-orient: vertical;
+
+    /* Ancient WebKit */
+    display: -webkit-box;
+    -webkit-box-align: stretch;
+    -webkit-box-orient: vertical;
+
+    /* Old WebKit */
+    display: -webkit-flex;
+    -webkit-align-items: stretch;
+    -webkit-flex-direction: column;
+
+    /* W3C */
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+
+}
+
+
+:-webkit-full-screen .content {
+    width: 100%;
+}
+
+:-moz-full-screen .content {
+    width: 100%;
+}
+
+
+:-ms-full-screen .content {
+    width: 100%;
+}
+
+
+:-o-full-screen .content {
+    width: 100%;
+}
+
+
+:full-screen .content {
+    width: 100%;
+}
+
+#guac-menu .content > * {
+
+    margin: 0;
+
+    -ms-flex: 0 0 auto;
+    -moz-box-flex: 0;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+
+}
+
+#guac-menu .content > * + * {
+    margin-top: 1em;
+}
+
+#guac-menu #menuclose img {
+    width: 50%;
+    height: 60%;
+    opacity: 0.5;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-top: 11px;
+}
+
+#guac-menu #menuclose img:hover {
+    opacity: 1;
+}
+
+#guac-menu #clipboard-settings textarea {
+    width: 100%;
+    border: 1px solid #AAA;
+    -moz-border-radius: 0.25em;
+    -webkit-border-radius: 0.25em;
+    -khtml-border-radius: 0.25em;
+    border-radius: 0.25em;
+    white-space: pre;
+    display: block;
+    font-size: 1em;
+    color: black;
+}
+
+#guac-menu #mouse-settings .choice {
+    text-align: center;
+}
+
+#guac-menu #mouse-settings .choice .figure {
+    display: inline-block;
+    vertical-align: middle;
+    width: 75%;
+    max-width: 320px;
+}
+
+#guac-menu #keyboard-settings .caption {
+    font-size: 0.9em;
+    margin-left: 2em;
+    margin-right: 2em;
+    color: black;
+}
+
+#guac-menu #mouse-settings .figure .caption {
+    text-align: center;
+    font-size: 0.9em;
+    color: black;
+}
+
+#guac-menu #mouse-settings .figure img {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 1em auto;
+}
+
+#guac-menu #keyboard-settings .figure {
+    float: right;
+    max-width: 30%;
+    margin: 1em;
+}
+
+#guac-menu #keyboard-settings .figure img {
+    max-width: 100%;
+}
+
+#guac-menu #zoom-settings {
+    text-align: center;
+}
+
+#guac-menu #zoom-out,
+#guac-menu #full-screen,
+#guac-menu #reloadpage,
+#guac-menu #logoutsession,
+#guac-menu #file-transfer,
+#guac-menu #helpbutton,
+#guac-menu #zoom-in,
+#guac-menu #full-state,
+#guac-menu #reload-state,
+#guac-menu #transfer-state,
+#guac-menu #logout-state,
+#guac-menu #help-state,
+#guac-menu #zoom-state {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#guac-menu #zoom-out,
+#guac-menu #full-screen,
+#guac-menu #reloadpage,
+#guac-menu #logoutsession,
+#guac-menu #file-transfer,
+#guac-menu #helpbutton,
+#guac-menu #zoom-in {
+    max-width: 3.5em;
+    height: 3.5em;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2em;
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+#guac-menu #zoom-out img,
+#guac-menu #full-screen img,
+#guac-menu #reloadpage img,
+#guac-menu #logoutsession img,
+#guac-menu #helpbutton img,
+#guac-menu #file-transfer img,
+#guac-menu #zoom-in img {
+    max-width: 75%;
+    opacity: 0.5;
+    margin-top: 7px;
+}
+
+#guac-menu #zoom-out:hover,
+#guac-menu #full-screen:hover,
+#guac-menu #reloadpage:hover,
+#guac-menu #logoutsession:hover,
+#guac-menu #helpbutton:hover,
+#guac-menu #file-transfer:hover,
+#guac-menu #zoom-in:hover {
+    border: 1px solid rgba(0, 0, 0, 1);
+    background: #239ACB;
+    cursor: pointer;
+}
+
+#guac-menu #full-state:hover,
+#guac-menu #reload-state:hover,
+#guac-menu #transfer-state:hover,
+#guac-menu #help-state:hover,
+#guac-menu #logout-state:hover{
+    color: #239ACB;
+    cursor: pointer;
+}
+
+#guac-menu #zoom-out:hover img,
+#guac-menu #full-screen:hover img,
+#guac-menu #reloadpage:hover img,
+#guac-menu #logoutsession:hover img,
+#guac-menu #file-transfer:hover img,
+#guac-menu #helpbutton:hover img,
+#guac-menu #zoom-in:hover img {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#guac-menu #zoom-state,
+#guac-menu #full-state,
+#guac-menu #reload-state,
+#guac-menu #transfer-state,
+#guac-menu #help-state,
+#guac-menu #logout-state{
+    font-size: 1.5em;
+    color: black;
+}
+
+#guac-menu #devices .device {
+
+    padding: 1em;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    background: rgba(0, 0, 0, 0.04);
+
+    padding-left: 3.5em;
+    background-size:         1.5em 1.5em;
+    -moz-background-size:    1.5em 1.5em;
+    -webkit-background-size: 1.5em 1.5em;
+    -khtml-background-size:  1.5em 1.5em;
+
+    background-repeat: no-repeat;
+    background-position: 1em center;
+
+}
+
+#guac-menu #devices .device:hover {
+    cursor: pointer;
+    border-color: black;
+}
+
+#guac-menu #devices .device.filesystem {
+    background-image: url('images/drive.png');
+}
+
+
+/*
+ * SimpleModal Basic Modal Dialog
+ * http://simplemodal.com
+ *
+ * Copyright (c) 2013 Eric Martin - http://ericmmartin.com
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ */
+
+.basic-modal-content {display:none;}
+
+/* Overlay */
+#simplemodal-overlay {background-color:#ffffff;}
+
+/* Container */
+#simplemodal-container {height:500px; width:700px; color:#fff; background-color:#fff; border:1px solid black; padding:0px;}
+#simplemodal-container .simplemodal-data {padding:0px;}
+#simplemodal-container code {background:#ffffff; border-left:0px solid #ffffff; color:#fff; display:block; font-size:12px; color: black; margin-bottom:0px; padding:0px 0px 0px;}
+#simplemodal-container a {color:#ddd;}
+#simplemodal-container a.modalCloseImg {background:url(images/closedlg.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-16px; cursor:pointer;}
+#simplemodal-container h3 {color:#84b8d9;}

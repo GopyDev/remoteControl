@@ -1,0 +1,296 @@
+<!--
+   Copyright (C) 2014 Glyptodon LLC
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+   THE SOFTWARE.
+-->
+<guac-viewport>
+    <div class="client-view" id="view-area">
+        <div class="client-view-content">
+
+            <!-- Central portion of view -->
+            <div class="client-body" guac-touch-drag="clientDrag" guac-touch-pinch="clientPinch">
+
+                <!-- Client -->
+                <guac-client client="client"></guac-client>
+
+            </div>
+
+            <!-- Bottom portion of view -->
+            <div class="client-bottom">
+
+                <!-- Text input -->
+                <div class="text-input-container" ng-show="showTextInput">
+                    <guac-text-input needs-focus="showTextInput"></guac-text-input>
+                </div>
+
+                <!-- On-screen keyboard -->
+                <div class="keyboard-container" ng-show="showOSK">
+                    <guac-osk layout="'CLIENT.URL_OSK_LAYOUT' | translate"></guac-osk>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- File transfers -->
+    <div id="file-transfer-dialog" ng-show="hasTransfers()">
+        <guac-file-transfer-manager client="client"></guac-file-transfer-manager>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu" ng-class="{open: menu.shown}" id="guac-menu">
+
+        <div class="menu-content" id="menucontent">
+            <!-- Stationary header -->
+            <div class="header">
+                <h2>{{client.name}}</h2>
+                <div id="menuclose" ng-click="menuclose()" align=right><img src="images/settings/menuclose.png" alt="CloseMenu"/></div>
+                <!--<guac-user-menu local-actions="clientMenuActions"></guac-user-menu>-->
+            </div>
+
+            <!-- Scrollable body -->
+            <div class="menu-body" guac-touch-drag="menuDrag" guac-scroll="menu.scrollState">
+
+                <!-- Devices -->
+                <!--
+                <div class="menu-section" id="devices" ng-show="client.filesystems.length">
+                    <h3>{{'CLIENT.SECTION_HEADER_DEVICES' | translate}}</h3>
+                    <div class="content">
+                        <div class="device filesystem" ng-repeat="filesystem in client.filesystems" ng-click="showFilesystemMenu(filesystem)">
+                            {{filesystem.name}}
+                        </div>
+                    </div>
+                </div>
+                -->
+
+                <!-- Display options -->
+                <div class="menu-section" id="display-settings">
+                    <h3></h3>
+                    <div class="content">
+                        <div id="fullscreen">
+                            <div id="full-screen" align=center ng-click="goFullscreen()"><img src="images/settings/fullscreen.png" alt="FullScreen"/></div>
+                            <div id="full-state" ng-click="goFullscreen()">   Full screen</div>
+                            <!--<div id="full-state" onclick="toggleFullScreen(document.body)">   Full screen</div>-->
+                        </div>
+                    </div><br>
+                    <div class="content">
+                        <div id="reload">
+                            <div ng-click="reloadCtrl()" id="reloadpage" align=center><img src="images/settings/reload.png" alt="ReloadPage"/></div>
+                            <div id="reload-state" ng-click="reloadCtrl()">   Reload page</div>
+                        </div>
+                    </div><br>
+
+                    <!-- modal content -->
+                    <div class="basic-modal-content" id="filesystem-menu">
+                        <div class="menu-content">
+                            <!-- Stationary header -->
+                            <div class="header">
+                                <h2>File  transfers</h2>
+                            </div>
+                            <div class="header">
+                                <h3>Download files</h3>
+                            </div>
+                            <!-- Breadcrumbs -->
+                            <div class="header breadcrumbs">
+                                <div class="breadcrumb root"
+                                    ng-click="changeDirectory(filesystemMenuContents, filesystemMenuContents.root)">
+                                </div>
+                                <div class="breadcrumb"
+                                    ng-repeat="file in getPath(filesystemMenuContents.currentDirectory)"
+                                    ng-click="changeDirectory(filesystemMenuContents, file)">{{file.name}}</div>
+                            </div>
+                            <!-- Scrollable body -->
+                            <div class="menu-body">
+                                <guac-file-browser client="client" filesystem="filesystemMenuContents"></guac-file-browser>
+                            </div><hr width="700">
+                            <div>
+                                <button class="upload button" guac-upload="uploadFiles" style="margin-left:15px;">{{'CLIENT.ACTION_UPLOAD_FILES' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="basic-modal-content" id="uploadcomplete-dialog">
+                        <div class="menu-content">
+                            <!-- Stationary header -->
+                            <div class="header">
+                                <h2>How can you see uploaded files?</h2>
+                            </div>
+                            <!-- Scrollable body -->
+                            <div class="menu-body">
+                                <div id="image-area" align=center><img class="helpscreen" src="images/screenshots/uploadmodal.png" alt="uploadedFiles"/></div>
+                                <!--<h5><input type="checkbox" ng-click="showagain()" name="showmodal" id="showmodal"/>This dialog is not display again.</h5> width:570px, height:365px-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <div id="filetransfer">
+                            <div ng-repeat="filesystem in client.filesystems" ng-click="showFilesystemMenu(filesystem);launch()" id="file-transfer" align=center><img src="images/settings/filetransfer.png" alt="FileTransfer"/></div>
+                            <div id="transfer-state" ng-repeat="filesystem in client.filesystems" ng-click="showFilesystemMenu(filesystem);launch()">   File transfer</div>
+                        </div>
+                    </div><br>
+
+                    <div class="basic-modal-content" id="help-dialog">
+                        <div class="menu-content">
+                            <!-- Stationary header -->
+                            <div class="header">
+                                <h2>Help tutorial</h2>
+                                <div id="gotohome" ng-click="gotohome()" align=right><img src="images/settings/back-button.png" alt="GotoHome"/></div>
+                            </div>
+                            <!-- Scrollable body -->
+                            <div class="menu-body" id="help-content">
+                                <div class="catlist" id="help-openmenu" ng-click="helpopenmenu()">
+                                    <h4>1. How to open menu</h4>
+                                </div>
+                                <div class="catlist" id="help-downfile" ng-click="helpdownload()">
+                                    <h4>2. How to download files</h4>
+                                </div>
+                                <div class="catlist" id="help-upfile" ng-click="helpupload()">
+                                    <h4>3. How to upload files</h4>
+                                </div>
+                                <div class="catlist" id="help-copypaste" ng-click="helpcopypaste()">
+                                    <h4>4. How to copy/paste</h4>
+                                </div>
+                                <div class="catlist" id="help-print" ng-click="helpprint()">
+                                    <h4>5. How to print</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <div id="help">
+                            <div ng-click="helpbutton()" id="helpbutton" align=center><img src="images/settings/help.png" alt="Help"/></div>
+                            <div id="help-state" ng-click="helpbutton()">   Help</div>
+                        </div>
+                    </div><br>
+
+                    <div class="content">
+                        <div id="logout">
+                            <div ng-click="logout()" id="logoutsession" align=center><img src="images/settings/logout.png" alt="Logout"/></div>
+                            <div id="logout-state" ng-click="logout()">   Logout</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="newmenu" id="guac-menu" style="display:none">
+        <div id="guac-newmenu" class="a-btn" ng-click="switching()" ng-mousemove="mousemove()" ng-mousedown="mousedown()" ng-mouseout="mouseout()">
+            <span></span>
+            <span class="unselectable" unselectable="on">V2 Cloud</span>
+            <span class="unselectable" unselectable="on">Menu</span>
+        </div>
+    </div>
+    <script>
+        var selected = null, // Object of the element to be moved
+            y_pos = 0, // Stores y coordinates of the mouse pointer
+            y_elem = 25; // Stores top, left values (edge) of the element
+
+        // Will be called when user starts dragging an element
+        function _drag_init(elem) {
+            // Store the object of the element which needs to be moved
+            selected = elem;
+            //y_elem = y_pos - selected.offsetTop;
+        }
+
+        // Will be called when user dragging an element
+        function _move_elem(event) {
+            y_pos = document.all ? window.event.clientY : event.pageY;
+            if (selected !== null) {
+                if (y_pos - y_elem < 0 || y_pos - y_elem > window.innerHeight - 25)
+                    return;
+                selected.style.top = (y_pos - y_elem) + 'px';
+            }
+        }
+
+        // Destroy the object when we are done
+        function _destroy() {
+            selected = null;
+        }
+
+        // Bind the functions...
+        document.getElementById('guac-newmenu').onmousedown = function () {
+            _drag_init(this);
+            return false;
+        };
+
+        document.getElementById('guac-newmenu').onmouseout = function () {
+            selected = null;
+        };
+
+        document.onmousemove = _move_elem;
+        document.onmouseup = _destroy;
+
+        /*function toggleFullScreen(elem) {
+            // ## The below if statement seems to work better ## if ((document.fullScreenElement && document.fullScreenElement !== null) || (document.msfullscreenElement && document.msfullscreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+            if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+                if (elem.requestFullScreen) {
+                    elem.requestFullScreen();
+                } else if (elem.mozRequestFullScreen) {
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullScreen) {
+                    elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                }
+            } else {
+                if (document.cancelFullScreen) {
+                    document.cancelFullScreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }*/
+    </script>
+
+    <!--  
+    <div id="filesystem-menu" class="menu" ng-class="{open: isFilesystemMenuShown()}">
+        <div class="menu-content">
+
+            <div class="header">
+                <h2>{{filesystemMenuContents.name}}</h2>
+                <button class="upload button" guac-upload="uploadFiles">{{'CLIENT.ACTION_UPLOAD_FILES' | translate}}</button>
+                <button class="back" ng-click="hideFilesystemMenu()">{{'CLIENT.ACTION_NAVIGATE_BACK' | translate}}</button>
+            </div>
+
+            <div class="header breadcrumbs"><div
+                    class="breadcrumb root"
+                    ng-click="changeDirectory(filesystemMenuContents, filesystemMenuContents.root)"></div><div
+                        class="breadcrumb"
+                        ng-repeat="file in getPath(filesystemMenuContents.currentDirectory)"
+                        ng-click="changeDirectory(filesystemMenuContents, file)">{{file.name}}</div>
+            </div>
+
+            <div class="menu-body">
+                <guac-file-browser client="client" filesystem="filesystemMenuContents"></guac-file-browser>
+            </div>
+
+        </div>
+    </div>
+    -->
+
+</guac-viewport>
